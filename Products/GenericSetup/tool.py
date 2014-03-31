@@ -338,7 +338,8 @@ class SetupTool(Folder):
                                      profile_id,
                                      purge_old=None,
                                      ignore_dependencies=False,
-                                     archive=None):
+                                     archive=None,
+                                     stepsToSkip=None):
         """ See ISetupTool.
         """
         __traceback_info__ = profile_id
@@ -347,7 +348,8 @@ class SetupTool(Folder):
                             purge_old=purge_old,
                             profile_id=profile_id,
                             archive=archive,
-                            ignore_dependencies=ignore_dependencies)
+                            ignore_dependencies=ignore_dependencies,
+                            stepsToSkip=stepsToSkip)
         if profile_id is None:
             prefix = 'import-all-from-tar'
         else:
@@ -1066,7 +1068,8 @@ class SetupTool(Folder):
                                    profile_id=None,
                                    archive=None,
                                    ignore_dependencies=False,
-                                   seen=None):
+                                   seen=None,
+                                   stepsToSkip=None):
 
         if profile_id is not None and not ignore_dependencies:
             try:
@@ -1097,7 +1100,10 @@ class SetupTool(Folder):
             event.notify(
                 BeforeProfileImportEvent(self, profile_id, steps, True))
             for step in steps:
-                message = self._doRunImportStep(step, context)
+                if stepsToSkip and step in stepsToSkip:
+                    message = 'step skipped'
+                else:
+                    message = self._doRunImportStep(step, context)
                 message_list = filter(None, [message])
                 message_list.extend([ '%s: %s' % x[1:]
                                       for x in context.listNotes() ])
