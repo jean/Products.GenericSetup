@@ -555,7 +555,8 @@ class ISetupTool( Interface ):
         """
 
     def runAllImportStepsFromProfile(profile_id, purge_old=None,
-                                     ignore_dependencies=False):
+                                     ignore_dependencies=False,
+                                     steps_to_skip=None):
 
         """ Run all setup steps for the given profile in dependency order.
 
@@ -568,6 +569,9 @@ class ISetupTool( Interface ):
 
         o Unless 'ignore_dependencies' is true this will also import
           all profiles this profile depends on.
+
+        o 'steps_to_skip' can be a list of step-names that then will be
+          ignored.
 
         o Return a mapping, with keys:
 
