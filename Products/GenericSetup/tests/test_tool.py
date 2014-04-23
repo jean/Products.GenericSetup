@@ -614,7 +614,7 @@ class SetupToolTests(FilesystemTestBase, TarballTester, ConformsToISetupTool):
         tool = self._makeOne('setup_tool').__of__( site )
         result = tool.runAllImportStepsFromProfile(
             'snapshot-dummy',
-            stepsToSkip=['toolset']
+            steps_to_skip=['toolset']
         )
 
         self.assertEqual( (result['messages']['toolset']), 'step skipped' )
