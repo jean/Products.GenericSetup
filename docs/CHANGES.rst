@@ -1,6 +1,12 @@
 Products.GenericSetup Changelog
 ===============================
 
+1.7.5 (unreleased)
+------------------
+
+- Nothing changed yet.
+
+
 1.7.4 (2013-06-12)
 ------------------
 
